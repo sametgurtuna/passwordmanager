@@ -12,7 +12,7 @@ Python 3.x
 1. Projenin klonunu alın:
 
 ```bash
-git clone https://github.com/your-username/password-manager.git
+git clone https://github.com/sametgurtuna/passwordmanager.git
 ```
 2.Kütüphaneleri yükleyin:
 ```bash
@@ -28,6 +28,7 @@ python main.py
 
 ### Notlar
 Şifrelerinizin güvenliği için oluşturduğunuz anahtar dosyasını kaybetmeyin.
+
 Şifrelerinizin yedeklerini düzenli olarak alın.
 
 
