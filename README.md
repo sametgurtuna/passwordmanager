@@ -13,3 +13,5 @@ Python 3.x
 
 ```bash
 git clone https://github.com/your-username/password-manager.git
+
+2.Kütüphaneleri yükleyin:
