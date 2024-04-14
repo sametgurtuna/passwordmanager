@@ -30,6 +30,7 @@ pip install cryptography
 python main.py
 ```
 2. Choose the appropriate option from the menu.
+   
 (1) Create a new key: Generate a new encryption key for encryption and decryption operations.
 
 (2) Load an existing key: Load a previously generated key for encryption and decryption operations.
