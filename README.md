@@ -1,4 +1,4 @@
-# Şifre Yöneticisi
+# Password Manager
 Bu basit şifre yöneticisi Python kullanılarak geliştirilmiştir. Şifreleri güvenli bir şekilde saklamak ve yönetmek için kullanılabilir.
 
 ## Başlangıç
