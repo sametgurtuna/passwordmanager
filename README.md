@@ -1,16 +1,16 @@
 # Türkçe
 
-# Password Manager
+## Password Manager
 Bu basit şifre yöneticisi Python kullanılarak geliştirilmiştir. Şifreleri güvenli bir şekilde saklamak ve yönetmek için kullanılabilir.
 
-## Başlangıç
+### Başlangıç
 Projeyi yerel makinenizde çalıştırmak için aşağıdaki adımları izleyin.
 
-### Gereksinimler
+#### Gereksinimler
 Python 3.x 
 
 `cryptography` kütüphanesi
-### Kurulum
+#### Kurulum
 1. Projenin klonunu alın:
 
 ```bash
@@ -21,7 +21,7 @@ git clone https://github.com/sametgurtuna/passwordmanager.git
 pip install cryptography
 ```
 
-### Kullanım
+#### Kullanım
 1. `main.py` dosyasını çalıştırın:
 ```bash
 python main.py
