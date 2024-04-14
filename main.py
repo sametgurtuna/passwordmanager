@@ -42,9 +42,17 @@ class PasswordManager:
                 encrypted = Fernet(self.key).encrypt(password.encode())
                 f.write(site + ":" + encrypted.decode() + "\n")
 
-
-    def get_password(self,site):
-        return self.password_dict[site]
+    def get_password(self, site=None):
+        if site:
+            if site in self.password_dict:
+                return self.password_dict[site]
+            else:
+                return f"No password found for {site}."
+        else:
+            if self.password_dict:
+                return "\n".join(self.password_dict.keys())
+            else:
+                return "No passwords found."
 
     def remove_password(self, site):
         if site in self.password_dict:
@@ -74,36 +82,43 @@ def main():
     pm.load_password_file("mypasswords.pass")
 
     print("""What do you want to do?
-    (1) Add a new password
-    (2) Get a password
-    (3) Remove a password
+    (1) Create a new key 
+    (2) Load an existing key 
+    (3) Create new password file 
+    (4) Load existing password file
+    (5) Add a new password
+    (6) Get a password
+    (7) Remove a password
     (q) Quit
-    """) #(1) Create a new key (2) Load an existing key (3) Create new password file (4) Load existing password file
+    """)
 
     done = False
 
     while not done:
         choice = input("Enter your choice: ")
-        # if choice == "1":
-        #     path = input("Enter path: ")
-        #     pm.create_key(path)
-        # elif choice == "2":
-        #     path = input("Enter path: ")
-        #     pm.load_key(path)
-        # elif choice == "3":
-        #     path = input("Enter path: ")
-        #     pm.create_password_file(path,password)
-        # elif choice == "4":
-        #     path = input("Enter path: ")
-        #     pm.load_password_file(path)
         if choice == "1":
+            path = input("Enter path: ")
+            pm.create_key(path)
+        elif choice == "2":
+            path = input("Enter path: ")
+            pm.load_key(path)
+        elif choice == "3":
+            path = input("Enter path: ")
+            pm.create_password_file(path,password)
+        elif choice == "4":
+            path = input("Enter path: ")
+            pm.load_password_file(path)
+        elif choice == "5":
             site = input("Enter the site: ")
             password = input("Enter the password: ")
             pm.add_password(site,password)
-        elif choice == "2":
-            site = input("What site do you want: ")
+        elif choice == "6":
+            print("Available sites:")
+            print(pm.get_password())
+            site = input("Enter the site you want: ")
             print(f"Password for {site} is {pm.get_password(site)}")
-        elif choice == "3":
+
+        elif choice == "7":
             site = input("Enter the site you want to remove the password for: ")
             pm.remove_password(site)
         elif choice == "q":
