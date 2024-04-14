@@ -1,4 +1,93 @@
+import tkinter as tk
+from tkinter import simpledialog, messagebox
 from cryptography.fernet import Fernet
+
+class PasswordManagerGUI:
+
+    def __init__(self, master):
+        self.master = master
+        master.title("Password Manager")
+
+        self.pm = PasswordManager()
+        self.pm.load_key("pass.key")
+        self.pm.load_password_file("passwords.pass")
+
+        self.label = tk.Label(master, text="What do you want to do?")
+        self.label.grid(row=0, column=0, columnspan=2)
+
+        self.create_button = tk.Button(master, text="Create a new key", command=self.create_key)
+        self.create_button.grid(row=1, column=0)
+
+        self.load_button = tk.Button(master, text="Load an existing key", command=self.load_key)
+        self.load_button.grid(row=1, column=1)
+
+        self.create_file_button = tk.Button(master, text="Create new password file", command=self.create_password_file)
+        self.create_file_button.grid(row=2, column=0)
+
+        self.load_file_button = tk.Button(master, text="Load existing password file", command=self.load_password_file)
+        self.load_file_button.grid(row=2, column=1)
+
+        self.add_button = tk.Button(master, text="Add a new password", command=self.add_password)
+        self.add_button.grid(row=3, column=0)
+
+        self.get_button = tk.Button(master, text="Get a password", command=self.get_password)
+        self.get_button.grid(row=3, column=1)
+
+        self.remove_button = tk.Button(master, text="Remove a password", command=self.remove_password)
+        self.remove_button.grid(row=4, column=0, columnspan=2)
+
+        self.quit_button = tk.Button(master, text="Quit", command=master.quit)
+        self.quit_button.grid(row=5, column=0, columnspan=2)
+
+    def create_key(self):
+        path = simpledialog.askstring("Create Key", "Enter path:")
+        if path:
+            self.pm.create_key(path)
+            messagebox.showinfo("Success", "Key created successfully.")
+
+    def load_key(self):
+        path = simpledialog.askstring("Load Key", "Enter path:")
+        if path:
+            self.pm.load_key(path)
+            messagebox.showinfo("Success", "Key loaded successfully.")
+
+    def create_password_file(self):
+        path = simpledialog.askstring("Create Password File", "Enter path:")
+        if path:
+            self.pm.create_password_file(path)
+            messagebox.showinfo("Success", "Password file created successfully.")
+
+    def load_password_file(self):
+        path = simpledialog.askstring("Load Password File", "Enter path:")
+        if path:
+            self.pm.load_password_file(path)
+            messagebox.showinfo("Success", "Password file loaded successfully.")
+
+    def add_password(self):
+        site = simpledialog.askstring("Add Password", "Enter the site:")
+        password = simpledialog.askstring("Add Password", "Enter the password:")
+        if site and password:
+            self.pm.add_password(site, password)
+            messagebox.showinfo("Success", "Password added successfully.")
+
+    def get_password(self):
+        sites = self.pm.get_password()
+        if sites:
+            site = simpledialog.askstring("Get Password", "Available sites:\n" + "\n".join(sites) + "\nEnter the site:")
+            if site:
+                password = self.pm.get_password(site)
+                if password:
+                    messagebox.showinfo(site, f"Password for {site} is {password}")
+                else:
+                    messagebox.showwarning("Warning", f"No password found for {site}.")
+        else:
+            messagebox.showwarning("Warning", "No passwords found.")
+
+    def remove_password(self):
+        site = simpledialog.askstring("Remove Password", "Enter the site:")
+        if site:
+            self.pm.remove_password(site)
+            messagebox.showinfo("Success", f"Password for {site} removed successfully.")
 
 class PasswordManager:
 
@@ -7,125 +96,60 @@ class PasswordManager:
         self.password_file = None
         self.password_dict = {}
 
-    def create_key(self,path):
+    def create_key(self, path):
         self.key = Fernet.generate_key()
         with open(path, "wb") as f:
             f.write(self.key)
 
-
-    def load_key(self,path):
+    def load_key(self, path):
         with open(path, "rb") as f:
             self.key = f.read()
 
-    def create_password_file(self,path,initial_values = None):
+    def create_password_file(self, path):
         self.password_file = path
+        if self.password_dict:
+            with open(self.password_file, "w") as f:
+                for site, password in self.password_dict.items():
+                    encrypted = Fernet(self.key).encrypt(password.encode())
+                    f.write(site + ":" + encrypted.decode() + "\n")
 
-        if initial_values is not None:
-            for key,values in initial_values.items():
-                self.add_password(key,values)
-
-
-    def load_password_file(self,path):
+    def load_password_file(self, path):
         self.password_file = path
+        try:
+            with open(path, "r") as f:
+                for line in f:
+                    site, encrypted = line.strip().split(":")
+                    decrypted = Fernet(self.key).decrypt(encrypted.encode()).decode()
+                    self.password_dict[site] = decrypted
+        except FileNotFoundError:
+            messagebox.showwarning("Warning", "Password file not found.")
 
-        with open(path, "r") as f:
-            for line in f:
-                site, encrypted = line.split(":")
-                self.password_dict[site] = Fernet(self.key).decrypt(encrypted.encode()).decode()
-
-
-    def add_password(self,site,password):
+    def add_password(self, site, password):
         self.password_dict[site] = password
-
-        if self.password_file is not None:
-            with open(self.password_file, "a+") as f:
+        if self.password_file:
+            with open(self.password_file, "a") as f:
                 encrypted = Fernet(self.key).encrypt(password.encode())
                 f.write(site + ":" + encrypted.decode() + "\n")
 
     def get_password(self, site=None):
-        if site:
-            if site in self.password_dict:
-                return self.password_dict[site]
-            else:
-                return f"No password found for {site}."
+        if site is None:
+            return list(self.password_dict.keys())
         else:
-            if self.password_dict:
-                return "\n".join(self.password_dict.keys())
-            else:
-                return "No passwords found."
+            return self.password_dict.get(site, f"No password found for {site}.")
 
     def remove_password(self, site):
         if site in self.password_dict:
             del self.password_dict[site]
-            if self.password_file is not None:
+            if self.password_file:
                 with open(self.password_file, "w") as f:
                     for s, password in self.password_dict.items():
                         encrypted = Fernet(self.key).encrypt(password.encode())
                         f.write(s + ":" + encrypted.decode() + "\n")
-            print(f"Password for {site} removed successfully.")
-        else:
-            print(f"No password found for {site}.")
-
 
 def main():
-    password = {
-        "email" : "123467",
-        "facebook": "myfbpassword",
-        "github": "mygithubpassword",
-        "linkedin": "mylinkedinpassword",
-
-    }
-
-    pm = PasswordManager()
-
-    pm.load_key("testkey.key")
-    pm.load_password_file("mypasswords.pass")
-
-    print("""What do you want to do?
-    (1) Create a new key 
-    (2) Load an existing key 
-    (3) Create new password file 
-    (4) Load existing password file
-    (5) Add a new password
-    (6) Get a password
-    (7) Remove a password
-    (q) Quit
-    """)
-
-    done = False
-
-    while not done:
-        choice = input("Enter your choice: ")
-        if choice == "1":
-            path = input("Enter path: ")
-            pm.create_key(path)
-        elif choice == "2":
-            path = input("Enter path: ")
-            pm.load_key(path)
-        elif choice == "3":
-            path = input("Enter path: ")
-            pm.create_password_file(path,password)
-        elif choice == "4":
-            path = input("Enter path: ")
-            pm.load_password_file(path)
-        elif choice == "5":
-            site = input("Enter the site: ")
-            password = input("Enter the password: ")
-            pm.add_password(site,password)
-        elif choice == "6":
-            print("Available sites:")
-            print(pm.get_password())
-            site = input("Enter the site you want: ")
-            print(f"Password for {site} is {pm.get_password(site)}")
-
-        elif choice == "7":
-            site = input("Enter the site you want to remove the password for: ")
-            pm.remove_password(site)
-        elif choice == "q":
-            done = True
-            print("Bye!")
-        else:
-            print("Invalid choice")
+    root = tk.Tk()
+    my_gui = PasswordManagerGUI(root)
+    root.mainloop()
 
 if __name__ == "__main__":
     main()
