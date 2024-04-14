@@ -30,6 +30,19 @@ pip install cryptography
 python main.py
 ```
 2. Choose the appropriate option from the menu.
+(1) Create a new key: Generate a new encryption key for encryption and decryption operations.
+
+(2) Load an existing key: Load a previously generated key for encryption and decryption operations.
+
+(3) Create new password file: Create a new password file to store passwords.
+
+(4) Load existing password file: Load an existing password file to access stored passwords.
+
+(5) Add a new password: Add a new password for a specific site or service.
+
+(6) Get a password: Retrieve the password for a specific site or service.
+
+(7) Remove a password: Remove the password for a specific site or service.
 
 ### Notes
 Ensure you don't lose the key file you create for the security of your passwords.
