@@ -69,6 +69,19 @@ pip install cryptography
 python main.py
 ```
 2. Menüden uygun seçeneği seçin
+(1) Yeni bir anahtar oluştur: Yeni bir şifreleme anahtarı oluşturarak şifreleme ve şifre çözme işlemleri için kullanılır.
+
+(2) Mevcut anahtarı yükle: Daha önceden oluşturulmuş bir anahtarı yükleyerek şifreleme ve şifre çözme işlemleri için kullanılır.
+
+(3) Yeni bir şifre dosyası oluştur: Yeni bir şifre dosyası oluşturarak şifrelerin saklanmasını sağlar.
+
+(4) Mevcut şifre dosyasını yükle: Daha önceden oluşturulmuş bir şifre dosyasını yükleyerek içerisindeki şifreleri kullanılabilir hale getirir.
+
+(5) Yeni bir şifre ekleyin: Belirli bir site veya hizmet için yeni bir şifre ekler.
+
+(6) Bir şifre alın: Belirli bir site veya hizmet için kayıtlı olan şifreyi görüntüler.
+
+(7) Bir şifreyi kaldırın: Belirli bir site veya hizmet için kayıtlı olan şifreyi kaldırır.
 
 ### Notlar
 Şifrelerinizin güvenliği için oluşturduğunuz anahtar dosyasını kaybetmeyin.
