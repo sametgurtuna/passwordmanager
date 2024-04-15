@@ -1,4 +1,4 @@
- [Installation With Source Code](#installation-with-source-code)|| [Download Release](#download-release)
+ [Installation With Source Code](#installation-with-source-code)  || [Download Release](#download-release)
  
 - [About The Project](#about-the-project)
  
