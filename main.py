@@ -9,7 +9,7 @@ class PasswordManagerGUI:
         master.title("Password Manager")
 
         self.pm = PasswordManager()
-        self.pm.load_key("pass.key")
+        self.pm.load_key("key.key")
         self.pm.load_password_file("passwords.pass")
 
         self.label = tk.Label(master, text="What do you want to do?")
@@ -21,23 +21,23 @@ class PasswordManagerGUI:
         self.load_button = tk.Button(master, text="Load an existing key", command=self.load_key)
         self.load_button.grid(row=1, column=1)
 
-        self.create_file_button = tk.Button(master, text="Create new password file", command=self.create_password_file)
-        self.create_file_button.grid(row=2, column=0)
+        #self.create_file_button = tk.Button(master, text="Create new password file", command=self.create_password_file)
+        #self.create_file_button.grid(row=2, column=0)
 
-        self.load_file_button = tk.Button(master, text="Load existing password file", command=self.load_password_file)
-        self.load_file_button.grid(row=2, column=1)
+        #self.load_file_button = tk.Button(master, text="Load existing password file", command=self.load_password_file)
+        #self.load_file_button.grid(row=2, column=1)
 
         self.add_button = tk.Button(master, text="Add a new password", command=self.add_password)
-        self.add_button.grid(row=3, column=0)
+        self.add_button.grid(row=2, column=0)
 
         self.get_button = tk.Button(master, text="Get a password", command=self.get_password)
-        self.get_button.grid(row=3, column=1)
+        self.get_button.grid(row=2, column=1)
 
         self.remove_button = tk.Button(master, text="Remove a password", command=self.remove_password)
-        self.remove_button.grid(row=4, column=0, columnspan=2)
+        self.remove_button.grid(row=3, column=0, columnspan=2)
 
         self.quit_button = tk.Button(master, text="Quit", command=master.quit)
-        self.quit_button.grid(row=5, column=0, columnspan=2)
+        self.quit_button.grid(row=4, column=0, columnspan=2)
 
     def create_key(self):
         path = simpledialog.askstring("Create Key", "Enter path:")
@@ -51,11 +51,11 @@ class PasswordManagerGUI:
             self.pm.load_key(path)
             messagebox.showinfo("Success", "Key loaded successfully.")
 
-    def create_password_file(self):
-        path = simpledialog.askstring("Create Password File", "Enter path:")
-        if path:
-            self.pm.create_password_file(path)
-            messagebox.showinfo("Success", "Password file created successfully.")
+    #def create_password_file(self):
+    #    path = simpledialog.askstring("Create Password File", "Enter path:")
+    #    if path:
+    #        self.pm.create_password_file(path)
+    #        messagebox.showinfo("Success", "Password file created successfully.")
 
     def load_password_file(self):
         path = simpledialog.askstring("Load Password File", "Enter path:")
@@ -84,10 +84,16 @@ class PasswordManagerGUI:
             messagebox.showwarning("Warning", "No passwords found.")
 
     def remove_password(self):
-        site = simpledialog.askstring("Remove Password", "Enter the site:")
-        if site:
-            self.pm.remove_password(site)
-            messagebox.showinfo("Success", f"Password for {site} removed successfully.")
+        sites = self.pm.get_password()  # Tüm sitelerin listesini al
+        if sites:
+            site = simpledialog.askstring("Remove Password",
+                                          "Available sites:\n" + "\n".join(sites) + "\nEnter the site:")
+            if site:
+                self.pm.remove_password(site)
+                messagebox.showinfo("Success", f"Password for {site} removed successfully.")
+        else:
+            messagebox.showwarning("Warning", "No passwords found.")
+
 
 class PasswordManager:
 
@@ -105,13 +111,13 @@ class PasswordManager:
         with open(path, "rb") as f:
             self.key = f.read()
 
-    def create_password_file(self, path):
-        self.password_file = path
-        if self.password_dict:
-            with open(self.password_file, "w") as f:
-                for site, password in self.password_dict.items():
-                    encrypted = Fernet(self.key).encrypt(password.encode())
-                    f.write(site + ":" + encrypted.decode() + "\n")
+    #def create_password_file(self, path):
+    #    self.password_file = path
+    #    if self.password_dict:
+    #        with open(self.password_file, "w") as f:
+    #            for site, password in self.password_dict.items():
+    #                encrypted = Fernet(self.key).encrypt(password.encode())
+    #                f.write(site + ":" + encrypted.decode() + "\n")
 
     def load_password_file(self, path):
         self.password_file = path
@@ -148,6 +154,8 @@ class PasswordManager:
 
 def main():
     root = tk.Tk()
+    img = tk.PhotoImage(file="C:\\Users\\samet\\PycharmProjects\\paasswordmanager\\icon.png")
+    root.iconphoto(False, img)
     my_gui = PasswordManagerGUI(root)
     root.mainloop()
 
