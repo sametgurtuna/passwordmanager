@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import simpledialog, messagebox
 from cryptography.fernet import Fernet
+import clipboard
 
 class PasswordManagerGUI:
 
@@ -20,12 +21,6 @@ class PasswordManagerGUI:
 
         self.load_button = tk.Button(master, text="Load an existing key", command=self.load_key)
         self.load_button.grid(row=1, column=1)
-
-        #self.create_file_button = tk.Button(master, text="Create new password file", command=self.create_password_file)
-        #self.create_file_button.grid(row=2, column=0)
-
-        #self.load_file_button = tk.Button(master, text="Load existing password file", command=self.load_password_file)
-        #self.load_file_button.grid(row=2, column=1)
 
         self.add_button = tk.Button(master, text="Add a new password", command=self.add_password)
         self.add_button.grid(row=2, column=0)
@@ -51,18 +46,6 @@ class PasswordManagerGUI:
             self.pm.load_key(path)
             messagebox.showinfo("Success", "Key loaded successfully.")
 
-    #def create_password_file(self):
-    #    path = simpledialog.askstring("Create Password File", "Enter path:")
-    #    if path:
-    #        self.pm.create_password_file(path)
-    #        messagebox.showinfo("Success", "Password file created successfully.")
-
-    def load_password_file(self):
-        path = simpledialog.askstring("Load Password File", "Enter path:")
-        if path:
-            self.pm.load_password_file(path)
-            messagebox.showinfo("Success", "Password file loaded successfully.")
-
     def add_password(self):
         site = simpledialog.askstring("Add Password", "Enter the site:")
         password = simpledialog.askstring("Add Password", "Enter the password:")
@@ -77,14 +60,15 @@ class PasswordManagerGUI:
             if site:
                 password = self.pm.get_password(site)
                 if password:
-                    messagebox.showinfo(site, f"Password for {site} is {password}")
+                    clipboard.copy(password)  # Şifreyi kopyala
+                    messagebox.showinfo(site, f"Password for {site} is {password}\nPassword copied to clipboard.")
                 else:
                     messagebox.showwarning("Warning", f"No password found for {site}.")
         else:
             messagebox.showwarning("Warning", "No passwords found.")
 
     def remove_password(self):
-        sites = self.pm.get_password()  # Tüm sitelerin listesini al
+        sites = self.pm.get_password()
         if sites:
             site = simpledialog.askstring("Remove Password",
                                           "Available sites:\n" + "\n".join(sites) + "\nEnter the site:")
@@ -93,7 +77,6 @@ class PasswordManagerGUI:
                 messagebox.showinfo("Success", f"Password for {site} removed successfully.")
         else:
             messagebox.showwarning("Warning", "No passwords found.")
-
 
 class PasswordManager:
 
@@ -110,14 +93,6 @@ class PasswordManager:
     def load_key(self, path):
         with open(path, "rb") as f:
             self.key = f.read()
-
-    #def create_password_file(self, path):
-    #    self.password_file = path
-    #    if self.password_dict:
-    #        with open(self.password_file, "w") as f:
-    #            for site, password in self.password_dict.items():
-    #                encrypted = Fernet(self.key).encrypt(password.encode())
-    #                f.write(site + ":" + encrypted.decode() + "\n")
 
     def load_password_file(self, path):
         self.password_file = path
