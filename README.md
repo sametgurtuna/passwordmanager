@@ -32,6 +32,10 @@ git clone https://github.com/sametgurtuna/passwordmanager.git
 pip install cryptography
 ```
 
+```bash
+pip install clipboard
+```
+
 
 ### Usage
 1. run the `main.py` file:
