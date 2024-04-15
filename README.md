@@ -69,7 +69,7 @@ Hello,
 
 To start using this simple password manager application, follow the steps below:
 
-1. Download the project:[here](https://github.com/sametgurtuna/passwordmanager/releases/tag/1.0)
+1. Download the project:[here](https://github.com/sametgurtuna/passwordmanager/releases)
 
 2. Extract the downloaded file to a folder.
 
