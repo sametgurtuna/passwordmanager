@@ -1,4 +1,5 @@
- [Installation With Source Code](#installation)
+ [Installation With Source Code](#installation-with-source-code)
+ [Download Release](#download-release)
  
 - [About The Project](#about-the-project)
  
@@ -58,3 +59,27 @@ python main.py
 Ensure you don't lose the key file you create for the security of your passwords.
 
 Regularly backup your passwords.
+
+# Download Release
+
+Hello,
+
+To start using this simple password manager application, follow the steps below:
+
+1. Download the project:[here](https://github.com/sametgurtuna/passwordmanager/releases/tag/1.0)
+
+2. Extract the downloaded file to a folder.
+
+3. Double-click the "pm.exe" file in the folder to start the application.
+
+4. Once the application starts, proceed by selecting the appropriate option:
+   - To create a new key: Click on "Create a new key".
+   - To load an existing key: Click on "Load an existing key".
+   - To add a new password: Click on "Add a new password".
+   - To get a password: Click on "Get a password".
+   - To remove a password: Click on "Quit".
+
+Notes:
+- Do not lose the key file you create for the security of your passwords.
+- Regularly backup your passwords.
+
