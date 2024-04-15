@@ -4,9 +4,6 @@
  
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Roadmap](#roadmap)
-- [Contributing](#contributing)
 - [Notice](#notice)
 
 # Installation With Source Code
