@@ -1,4 +1,4 @@
-#                                                                                                 Source Code
+# Installation With Source Code
 # English
 
 ## Password Manager
@@ -56,6 +56,8 @@ Regularly backup your passwords.
 
 
 # Türkçe
+
+# Kaynak Kodu İle Kurulum
 
 ## Password Manager
 Bu basit şifre yöneticisi Python kullanılarak geliştirilmiştir. Şifreleri güvenli bir şekilde saklamak ve yönetmek için kullanılabilir.
