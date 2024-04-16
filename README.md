@@ -81,7 +81,7 @@ To start using this simple password manager application, follow the steps below:
    - To load an existing key: Click on "Load an existing key".
    - To add a new password: Click on "Add a new password".
    - To get a password: Click on "Get a password".
-   - To remove a password: Click on "Quit".
+   - To remove a password: Click on "Remove a password".
 
 Notes:
 - Do not lose the key file you create for the security of your passwords.
