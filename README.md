@@ -19,6 +19,7 @@ Follow the below steps to run the project on your local machine.
 Python 3.x
 
 `cryptography` library
+`clipboard` library
 
 ### Installation
 1. Clone the project repository:
