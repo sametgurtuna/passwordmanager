@@ -8,31 +8,36 @@ class PasswordManagerGUI:
     def __init__(self, master):
         self.master = master
         master.title("Password Manager")
+        master.geometry("400x240")  # Pencere boyutu
+        master.configure(bg="#f0f0f0")
+
+        # Font stilleri
+        button_font = ("Arial", 10)
+        label_font = ("Arial", 12, "bold")
 
         self.pm = PasswordManager()
         self.pm.load_key("key.key")
         self.pm.load_password_file("passwords.pass")
 
-        self.label = tk.Label(master, text="What do you want to do?")
-        self.label.grid(row=0, column=0, columnspan=2)
+        self.label = tk.Label(master, text="What do you want to do?", font=label_font, bg="#f0f0f0")
+        self.label.grid(row=0, column=0, columnspan=2, pady=(10, 5))
 
-        self.create_button = tk.Button(master, text="Create a new key", command=self.create_key)
-        self.create_button.grid(row=1, column=0)
+        # Butonların oluşturulması ve düzenlenmesi
+        buttons = [
+            ("Create a new key", self.create_key),
+            ("Load an existing key", self.load_key),
+            ("Add a new password", self.add_password),
+            ("Get a password", self.get_password),
+            ("Remove a password", self.remove_password),
+            ("Quit", master.quit)
+        ]
 
-        self.load_button = tk.Button(master, text="Load an existing key", command=self.load_key)
-        self.load_button.grid(row=1, column=1)
-
-        self.add_button = tk.Button(master, text="Add a new password", command=self.add_password)
-        self.add_button.grid(row=2, column=0)
-
-        self.get_button = tk.Button(master, text="Get a password", command=self.get_password)
-        self.get_button.grid(row=2, column=1)
-
-        self.remove_button = tk.Button(master, text="Remove a password", command=self.remove_password)
-        self.remove_button.grid(row=3, column=0, columnspan=2)
-
-        self.quit_button = tk.Button(master, text="Quit", command=master.quit)
-        self.quit_button.grid(row=4, column=0, columnspan=2)
+        for i, (text, command) in enumerate(buttons):
+            button = tk.Button(master, text=text, width=15, command=command, font=button_font, bg="#007bff", fg="white", relief="raised")
+            if i < 3:
+                button.grid(row=i+1, column=0, padx=(40, 20), pady=5)
+            else:
+                button.grid(row=i-2, column=1, padx=(20, 40), pady=5)
 
     def create_key(self):
         path = simpledialog.askstring("Create Key", "Enter path:")
@@ -60,7 +65,7 @@ class PasswordManagerGUI:
             if site:
                 password = self.pm.get_password(site)
                 if password:
-                    clipboard.copy(password)  # Şifreyi kopyala
+                    clipboard.copy(password)
                     messagebox.showinfo(site, f"Password for {site} is {password}\nPassword copied to clipboard.")
                 else:
                     messagebox.showwarning("Warning", f"No password found for {site}.")
@@ -129,7 +134,7 @@ class PasswordManager:
 
 def main():
     root = tk.Tk()
-    img = tk.PhotoImage(file="C:\\Users\\samet\\PycharmProjects\\paasswordmanager\\icon.png")
+    img = tk.PhotoImage(file="icon.png")
     root.iconphoto(False, img)
     my_gui = PasswordManagerGUI(root)
     root.mainloop()
