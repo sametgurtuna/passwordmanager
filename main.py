@@ -134,7 +134,7 @@ class PasswordManager:
 
 def main():
     root = tk.Tk()
-    img = tk.PhotoImage(file="icon.png")
+    img = tk.PhotoImage(file="C:\\Users\\samet\PycharmProjects\\paasswordmanager\\icon.png")
     root.iconphoto(False, img)
     my_gui = PasswordManagerGUI(root)
     root.mainloop()
