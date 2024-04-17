@@ -1,3 +1,14 @@
+# Big Update Incoming! (Dropping 04/30/2024)
+🚀 Hold tight! We're super pumped to announce a major update for our password manager app, landing on April 30th, 2024.
+
+✨ What's New? We've jazzed up the interface to make it smoother and more user-friendly. Get ready to navigate with ease!
+
+🎁 Surprise Features Await! But that's not all—brace yourselves for some jaw-dropping surprises along the way. Stay tuned for more exciting reveals!
+
+🔥 Save the Date! Don't miss out on the excitement. Mark your calendars and stay tuned for sneak peeks!
+
+
+
  [Installation With Source Code](#installation-with-source-code)  || [Download Release](#download-release)
  
 - [About The Project](#about-the-project)
