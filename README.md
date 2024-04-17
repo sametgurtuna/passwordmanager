@@ -18,7 +18,6 @@
 - [Notice](#notice)
 
 # Installation With Source Code
-# English
 
 ## Password Manager
 This simple password manager is developed using Python. It can be used to securely store and manage passwords.
