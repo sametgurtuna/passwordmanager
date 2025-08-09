@@ -135,4 +135,58 @@ pip install clipboard
 - **Interface**: Command-line interface (CLI)
 - **Platform**: Cross-platform (Windows, macOS, Linux)
 
-## 📁 Project Structure
+
+---
+
+## 🚧 Troubleshooting
+
+### Common Issues
+
+| Problem | Solution |
+|---------|----------|
+| **Key file not found** | Ensure key file is in the same directory as the application |
+| **Import errors** | Install required dependencies: `pip install cryptography clipboard` |
+| **Permission denied** | Run as administrator or check file permissions |
+| **Python not found** | Install Python 3.7+ and add to PATH |
+
+### Getting Help
+
+- **Issues**: [GitHub Issues](https://github.com/sametgurtuna/passwordmanager/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/sametgurtuna/passwordmanager/discussions)
+- **Wiki**: Check the project wiki for detailed guides
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Here's how you can help:
+
+1. **Fork** the repository
+2. **Create** a feature branch
+3. **Make** your changes
+4. **Test** thoroughly
+5. **Submit** a pull request
+
+### Development Setup
+
+```bash
+git clone https://github.com/sametgurtuna/passwordmanager.git
+cd passwordmanager
+pip install -r requirements.txt
+python main.py
+```
+
+---
+
+## �� Acknowledgments
+
+- **Cryptography Library**: For robust encryption capabilities
+- **Python Community**: For excellent documentation and tools
+- **Open Source Contributors**: For inspiration and feedback
+
+
+---
+
+**🔐 Secure • Simple • Reliable**
+
+*Built with security in mind for the modern digital world*
