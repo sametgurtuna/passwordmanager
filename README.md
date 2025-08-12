@@ -3,7 +3,7 @@
 A secure, Python-based password management application that allows you to safely store, encrypt, and manage your passwords with military-grade encryption. Built with security-first principles and user-friendly interface.
 
 ## 🚀 Quick Start
-
+ 
 | Option | Description |
 |--------|-------------|
 | [📥 Download Release](#download-release) | Ready-to-use executable for Windows |
